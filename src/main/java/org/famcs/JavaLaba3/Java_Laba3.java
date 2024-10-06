@@ -5,24 +5,38 @@
 package org.famcs.JavaLaba3;
 
 import java.util.Scanner;
+import java.util.Vector;
 
 
 public class Java_Laba3 
 {
     public static String strInput ()
-{   String line;
+{ 
     Scanner scan = new Scanner (System.in);
-    return scan.nextLine();
+    String line = scan.nextLine();
+    return line;
 }
-    public static void main(String[] args) {
-        System.out.println("Hello World!");
+    public static void main(String[] args) 
+    {
         System.out.printf("Enter the first line: \t");
         String firstLine = strInput();
 
         System.out.printf ("Enter the second line containing separators: \t");
         String separatorLine = strInput();
+        
+        String[] tokens = StringEditor.Separate(firstLine, separatorLine);
+        System.out.printf("\nFound tokens:\n");
+        for (String token : tokens)
+        {
+            System.out.println(token);
+        }
+        System.out.println();
 
-        StringEditor.Separate(firstLine, separatorLine);
-
+        Vector<Integer>octNumbers = new Vector<>();
+        for (String token : tokens)
+        {
+            octNumbers.addAll(StringEditor.FindOctNumbs(token));
+            StringEditor.FindDate(token);
+        }
     }
 }
