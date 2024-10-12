@@ -6,8 +6,9 @@
 package org.famcs.JavaLaba3;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Scanner; 
-import java.util.Vector; 
+import java.util.Random;
+import java.util.Scanner;
+import java.util.Vector;
 /**
  *
  * @author fpm.evdokimoAV
@@ -36,6 +37,21 @@ public class Java_Laba3 {
         System.out.println ("List of the octal numbers found in the tokens:");
         System.out.println (octNumbers);
     }
+
+    public static void insertRandNumber(StringBuilder line, int index)
+    {
+        Random rand = new Random();
+        int number = rand.nextInt();
+        if (index != -1)
+        {
+            line.insert (index+8, Integer.toString(number));
+        }
+        else 
+        {
+            index = line.length()/2;
+            line.insert (index, Integer.toString(number));
+        }
+    }
    
     public static void main(String[] args)  
     { 
@@ -58,7 +74,7 @@ public class Java_Laba3 {
  
         Vector<Integer>octNumbers = new Vector<>(); 
         ArrayList<Date> dates = new ArrayList<>(); 
-        String copy_token; 
+        String copy_token;  
          
         for (String token : tokens) 
         { 
@@ -68,6 +84,9 @@ public class Java_Laba3 {
         } 
         outputOctNumbers(octNumbers);
         outputDates(dates);
-
+        
+        StringBuilder str = new StringBuilder(firstLine);
+        insertRandNumber(str, StringEditor.indexOfDate(firstLine, 0));
+        System.out.println(str);
     } 
 }
