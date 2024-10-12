@@ -1,42 +1,73 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
-
 package org.famcs.JavaLaba3;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Scanner; 
+import java.util.Vector; 
+/**
+ *
+ * @author fpm.evdokimoAV
+ */
+public class Java_Laba3 {
 
-import java.util.Scanner;
-import java.util.Vector;
-
-
-public class Java_Laba3 
-{
-    public static String strInput ()
-{ 
-    Scanner scan = new Scanner (System.in);
-    String line = scan.nextLine();
-    return line;
-}
-    public static void main(String[] args) 
+    public static String strInput (Scanner scan) 
+{  
+    String line = scan.nextLine(); 
+    return line; 
+} 
+    
+    public static void outputDates(ArrayList<Date> dateList) //для вывода мспользовать DateFormat/Formatter
     {
-        System.out.printf("Enter the first line: \t");
-        String firstLine = strInput();
-
-        System.out.printf ("Enter the second line containing separators: \t");
-        String separatorLine = strInput();
-        
-        String[] tokens = StringEditor.Separate(firstLine, separatorLine);
-        System.out.printf("\nFound tokens:\n");
-        for (String token : tokens)
-        {
-            System.out.println(token);
-        }
         System.out.println();
-
-        Vector<Integer>octNumbers = new Vector<>();
-        for (String token : tokens)
+        System.out.println ("List of the dates found in the tokens:");
+        for (Date date : dateList)
         {
-            octNumbers.addAll(StringEditor.FindOctNumbs(token));
-            StringEditor.FindDate(token);
+            System.out.println(date);
         }
     }
+    
+    public static void outputOctNumbers(Vector<Integer> octNumbers)
+    {
+        System.out.println();
+        System.out.println ("List of the octal numbers found in the tokens:");
+        System.out.println (octNumbers);
+    }
+   
+    public static void main(String[] args)  
+    { 
+        Scanner scan = new Scanner (System.in); 
+        System.out.println("Enter the first line: \t"); 
+        String firstLine = strInput(scan); 
+ 
+        System.out.println ("Enter the second line containing separators: \t"); 
+        String separatorLine = strInput(scan); 
+         
+        scan.close(); 
+         
+        String[] tokens = StringEditor.Separate(firstLine, separatorLine); 
+        System.out.printf("\nFound tokens:\n"); 
+        for (String token : tokens) 
+        { 
+            System.out.println(token); 
+        } 
+        System.out.println(); 
+ 
+        Vector<Integer>octNumbers = new Vector<>(); 
+        ArrayList<Date> dates = new ArrayList<>(); 
+        String copy_token; 
+         
+        for (String token : tokens) 
+        { 
+            StringBuilder StrBToken = new StringBuilder (token); 
+            dates.addAll(StringEditor.FindDate(StrBToken));
+            octNumbers.addAll(StringEditor.FindOctNumbs(StrBToken.toString())); 
+        } 
+        outputOctNumbers(octNumbers);
+        outputDates(dates);
+
+    } 
 }
