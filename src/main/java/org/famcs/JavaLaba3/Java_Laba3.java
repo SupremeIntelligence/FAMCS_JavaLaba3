@@ -9,8 +9,9 @@ import java.util.Date;
 import java.util.Scanner;
 import java.util.Vector;
 import java.util.Comparator;
-import java.util.Arrays;
 import java.util.Collections;
+import java.util.Locale;
+import java.text.NumberFormat;
 /**
  *
  * @author fpm.evdokimoAV
@@ -64,7 +65,54 @@ public class Java_Laba3 {
         });
         
     }
-   
+
+    public static boolean isValidLocale(Locale locale) {
+        for (Locale availableLocale : Locale.getAvailableLocales()) {
+            if (availableLocale.equals(locale)) 
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void convertToCurrency (Vector<Integer> numbers, String language, String country)
+    {
+        Locale locale = new Locale (language, country);
+        //Locale locale = Locale.US;
+        
+        if (!isValidLocale(locale)) {
+            System.out.println("The entered locale does not exist.");
+            return;
+        }
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
+
+        System.out.printf ("%nList of values converted into %s currency: %n", country);
+        String formattedValue;
+        for (int numb : numbers)
+        {
+            formattedValue = currencyFormat.format(numb);
+            System.out.println (formattedValue);
+        }
+    }
+
+    public static void convertToPercents (Vector<Integer> numbers)
+    {
+        NumberFormat percentFormat = NumberFormat.getPercentInstance(Locale.US);
+        double percent;
+        String formattedValue;
+        System.out.println ("List of values as a percentage:");
+        for (int numb : numbers)
+        {
+            percent = numb;
+            //while (percent>10) //mb it's worth remove it
+            //{
+            //   percent /= 10;
+            //}
+            formattedValue = percentFormat.format(percent);
+            System.out.println (formattedValue);
+        }
+    }
     public static void main(String[] args)  
     { 
         Scanner scan = new Scanner (System.in); 
@@ -73,8 +121,6 @@ public class Java_Laba3 {
  
         System.out.println ("Enter the second line containing separators: \t"); 
         String separatorLine = strInput(scan); 
-         
-        scan.close(); 
          
         String[] tokens = StringEditor.Separate(firstLine, separatorLine); 
         System.out.printf("\nFound tokens:\n"); 
@@ -95,16 +141,57 @@ public class Java_Laba3 {
             octNumbers.addAll(StringEditor.FindOctNumbs(StrBToken.toString())); 
         } 
         
-        outputOctNumbers(octNumbers);
-        sortNumbers(octNumbers);
-        outputOctNumbers(octNumbers);
+        if (!octNumbers.isEmpty())
+        {
+            outputOctNumbers(octNumbers);
+            sortNumbers(octNumbers);
+            outputOctNumbers(octNumbers);
+        }
+        else 
+        {
+            System.out.printf("%nThere is no octal number in the string.%n");
+        }
 
-        outputDates(dates);
-        sortDates (dates);
-        outputDates(dates);
+        if (!dates.isEmpty())
+        {
+            outputDates(dates);
+            sortDates (dates);
+            outputDates(dates);
+        }
+        else 
+        {
+            System.out.printf("%nThere is no date in the string.%n");
+        }
+        
         
         StringBuilder str = new StringBuilder(firstLine);
         StringEditor.insertRandNumbAfterDate(str, StringEditor.indexOfDate(firstLine, 0));
-        System.out.println(str);
+        System.out.printf("%nThe string with inserted random number:%n %s %n%n", str);
+    if (!octNumbers.isEmpty())
+    {
+        System.out.println("""
+            Examples of currency language and country:
+            en_US  English (United States)
+            en_GB  English (United Kingdom)
+            fr_FR  French (France)
+            de_DE  German (Germany)
+            es_ES  Spanish (Spain)
+            ru_RU  Russian (Russia)
+            zh_CN  Chinese (China)
+            ja_JP  Japanese (Japan)
+            it_IT  Italian (Italy)
+            ko_KR  Korean (South Korea)""");      
+        System.out.println();
+        
+        System.out.println("Enter the currency language: ");
+        String language = strInput(scan);
+        System.out.println("Enter the currency country: ");
+        String country = strInput(scan);
+        convertToCurrency(octNumbers, language, country);
+
+        System.out.println();
+        convertToPercents(octNumbers);
+    }
+        scan.close();
     } 
 }
