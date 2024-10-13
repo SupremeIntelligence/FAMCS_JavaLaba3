@@ -6,9 +6,11 @@
 package org.famcs.JavaLaba3;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Random;
 import java.util.Scanner;
 import java.util.Vector;
+import java.util.Comparator;
+import java.util.Arrays;
+import java.util.Collections;
 /**
  *
  * @author fpm.evdokimoAV
@@ -21,7 +23,7 @@ public class Java_Laba3 {
     return line; 
 } 
     
-    public static void outputDates(ArrayList<Date> dateList) //для вывода мспользовать DateFormat/Formatter
+    public static void outputDates(ArrayList<Date> dateList) 
     {
         System.out.println();
         System.out.println ("List of the dates found in the tokens:");
@@ -38,19 +40,29 @@ public class Java_Laba3 {
         System.out.println (octNumbers);
     }
 
-    public static void insertRandNumber(StringBuilder line, int index)
+    public static void sortDates (ArrayList<Date> dateList)
     {
-        Random rand = new Random();
-        int number = rand.nextInt();
-        if (index != -1)
+        Collections.sort(dateList, new Comparator<Date>() 
         {
-            line.insert (index+8, Integer.toString(number));
-        }
-        else 
+            @Override
+            public int compare (Date x, Date y)
+            {
+                return x.compareTo(y);
+            }
+        });
+    }
+
+    public static void sortNumbers (Vector<Integer> numbers)
+    {
+        numbers.sort( new Comparator<Integer>()
         {
-            index = line.length()/2;
-            line.insert (index, Integer.toString(number));
-        }
+            @Override
+            public int compare (Integer x, Integer y)
+            {
+                return Integer.compare(x, y);
+            }
+        });
+        
     }
    
     public static void main(String[] args)  
@@ -82,11 +94,17 @@ public class Java_Laba3 {
             dates.addAll(StringEditor.FindDate(StrBToken));
             octNumbers.addAll(StringEditor.FindOctNumbs(StrBToken.toString())); 
         } 
+        
         outputOctNumbers(octNumbers);
+        sortNumbers(octNumbers);
+        outputOctNumbers(octNumbers);
+
+        outputDates(dates);
+        sortDates (dates);
         outputDates(dates);
         
         StringBuilder str = new StringBuilder(firstLine);
-        insertRandNumber(str, StringEditor.indexOfDate(firstLine, 0));
+        StringEditor.insertRandNumbAfterDate(str, StringEditor.indexOfDate(firstLine, 0));
         System.out.println(str);
     } 
 }

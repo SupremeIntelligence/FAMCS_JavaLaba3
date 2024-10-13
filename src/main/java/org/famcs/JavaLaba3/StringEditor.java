@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 import java.util.StringTokenizer;
 import java.util.Vector; 
 import java.util.regex.Matcher;
@@ -12,9 +13,6 @@ import java.util.regex.Pattern;
  
 public class StringEditor  
 { 
-     
-     
-     
     public static String[] Separate (String line, String separatorLine) 
     { 
         if (separatorLine.length() >= 2) 
@@ -140,4 +138,19 @@ StringEditor.indexOfDate(token, index)) != -1)
         } 
         return dateList; 
     } 
+
+    public static void insertRandNumbAfterDate(StringBuilder line, int index)
+    {
+        Random rand = new Random();
+        int number = rand.nextInt();
+        if (index != -1)
+        {
+            line.insert (index+8, Integer.toString(number));
+        }
+        else 
+        {
+            index = line.length()/2;
+            line.insert (index, Integer.toString(number));
+        }
+    }
 }
