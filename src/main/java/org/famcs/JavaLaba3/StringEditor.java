@@ -111,9 +111,7 @@ public class StringEditor
         ArrayList<Date> dateList = new ArrayList<>(); 
          
         int index = 0; 
-        while ((index =
-
-StringEditor.indexOfDate(token, index)) != -1) 
+        while ((index = StringEditor.indexOfDate(token, index)) != -1) 
         { 
             matcher.find(index); 
             try 
@@ -153,4 +151,28 @@ StringEditor.indexOfDate(token, index)) != -1)
             line.insert (index, Integer.toString(number));
         }
     }
+
+    public static int indexOfShortestToken(String[] tokens)
+    {
+        int MIN_size = Integer.MAX_VALUE;
+        int size;
+        int index = -1;
+        Character b;
+        Character e;
+
+        for (int i = 0; i < tokens.length; i++)
+        {
+            size = tokens[i].length();
+            b = tokens[i].charAt(0);
+            e = tokens[i].charAt(size-1);
+            if (Character.isDigit(b) && Character.isLetter(e) && size<= MIN_size)
+            {
+                MIN_size = size;
+                index = i;
+            }
+        }
+        return index;
+    }
+
+
 }

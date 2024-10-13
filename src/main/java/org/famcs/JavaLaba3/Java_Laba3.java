@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.Vector;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Collections;
 import java.util.Locale;
@@ -113,6 +114,16 @@ public class Java_Laba3 {
             System.out.println (formattedValue);
         }
     }
+
+    public static String[] removeElement (String[] tokens, int delIndex)
+    {
+        if (delIndex == -1 || delIndex >= tokens.length)
+        {
+            System.out.println("Incorrect deletion index.");
+            return tokens;
+        }
+        return Arrays.stream(tokens).filter(token-> !token.equals(tokens[delIndex])).toArray(String[]::new);
+    }
     public static void main(String[] args)  
     { 
         Scanner scan = new Scanner (System.in); 
@@ -193,5 +204,17 @@ public class Java_Laba3 {
         convertToPercents(octNumbers);
     }
         scan.close();
+
+        int delIndex = StringEditor.indexOfShortestToken(tokens);
+        System.out.println(delIndex);
+        String[] newTokens = removeElement(tokens, delIndex);
+        if (newTokens.length != tokens.length)
+        {
+            System.out.println (Arrays.toString(newTokens));
+        }
+        else
+        {
+            System.out.println ("There is no the shortest token that starts with a digit and ends with a letter");
+        }
     } 
 }
