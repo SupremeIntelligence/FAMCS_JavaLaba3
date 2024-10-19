@@ -1,5 +1,5 @@
 
- package org.famcs.JavaLaba3;
+package org.famcs.JavaLaba3;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -75,7 +75,7 @@ public class StringEditor
                 } 
         if (octNumbers.isEmpty()) 
         { 
-            result = String.format("There isn't any oct numbers int the token %s", token); 
+            result = String.format("There isn't any oct numbers in the token %s", token); 
             System.out.println(result); 
         } 
         return octNumbers; 

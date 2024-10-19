@@ -1,0 +1,24 @@
+
+Found tokens:
+something123smth
+10:10:10dsad16:02:05fds888fds123
+
+List of the octal numbers found in the tokens:
+83	83	
+List of the octal numbers found in the tokens:
+83	83	
+List of the dates found in the tokens:
+Sun Oct 10 00:00:00 MSK 2010
+Wed Feb 16 00:00:00 MSK 2005
+
+List of the dates found in the tokens:
+Wed Feb 16 00:00:00 MSK 2005
+Sun Oct 10 00:00:00 MSK 2010
+
+List of values converted into US currency:
+$83.00
+$83.00
+
+List of values as a percentage:
+8,300%
+8,300%
